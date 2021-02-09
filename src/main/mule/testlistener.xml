@@ -23,7 +23,6 @@ output application/json
 	time : now(),
 	city : "Atlanta"
 	
-	
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
