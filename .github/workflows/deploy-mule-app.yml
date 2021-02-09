@@ -71,7 +71,7 @@ jobs:
         echo $USERNAME
         echo $PASSWORD
         artifactName=$(ls *.jar | head -1)
-      # mvn mule:deploy -Dmule.artifact=$artifactName      
+        mvn mule:deploy -Dmule.artifact=$artifactName      
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName="$USERNAME" -Danypoint.password="$PASSWORD"
               # Runs a set of commands using the runners shell
       # Runs a single command using the runners shell
