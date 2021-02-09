@@ -64,13 +64,12 @@ jobs:
       with:
         name: artifacts
     - name: Deploy to CloudHub
-    #env:
-      #USERNAME: ${{ secrets.USERNAME }}
-      #PASSWORD: ${{ secrets.MULE_PASSWORD }}
+    env:
+      username: ${{ secrets.USERNAME }}
+      password: ${{ secrets.MULE_PASSWORD }}
       run: |
-        artifactName=$(ls *.jar | head -1)
-        mvn mule:deploy -Dmule.artifact=$artifactName      
-      #mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$USERNAME -Danypoint.password=$PASSWORD
+        artifactName=$(ls *.jar | head -1)     
+        mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password
               # Runs a set of commands using the runners shell
       # Runs a single command using the runners shell
       #- name: Run a one-line script
