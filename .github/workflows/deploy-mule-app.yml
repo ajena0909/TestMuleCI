@@ -68,8 +68,9 @@ jobs:
       #username: ${{ secrets.USERNAME }}
       #password: ${{ secrets.MULE_PASSWORD }}
       run: |
-        artifactName=$(ls *.jar | head -1)    
-        mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=akjenaprft3 -Danypoint.password=Whatismypwd1$
+        artifactName=$(ls *.jar | head -1) 
+        mvn mule:deploy -Dmule.artifact=$artifactName    
+      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=aaa -Danypoint.password=aaa$
       # Runs a set of commands using the runners shell
       # Runs a single command using the runners shell
       #- name: Run a one-line script
