@@ -19,9 +19,10 @@
 		<app.name>testlistener</app.name>
 		<app.version>1.0.0-SNAPSHOT</app.version>
 		<app.packaging>mule-application</app.packaging>	
+	    <!-- 
 		<anypoint.userName>akjenaprft3</anypoint.userName>	
 		<anypoint.password>Whatismypwd1$</anypoint.password>
-		
+		-->
 	</properties>
 
 	<build>
