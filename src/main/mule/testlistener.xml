@@ -21,6 +21,8 @@ output application/json
 	message : "Success",
 	details : "command prompt deployment",
 	time : now(),
+	city : "Atlanta"
+	
 	
 }]]></ee:set-payload>
 			</ee:message>
