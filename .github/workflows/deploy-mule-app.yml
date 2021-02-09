@@ -64,7 +64,7 @@ jobs:
       with:
         name: artifacts
     - name: Deploy to CloudHub
-    env:
+    # env:
       #USERNAME: ${{ secrets.USERNAME }}
       #PASSWORD: ${{ secrets.MULE_PASSWORD }}
       run: |
