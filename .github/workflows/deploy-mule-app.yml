@@ -89,6 +89,7 @@ jobs:
       run: |
         echo $(echo $GITHUB_REF | cut -d'/' -f 3)
         appname=$(ls *.jar | head -1)
+        echo "${appname}"
       #  echo "${GITHUB_BRANCH##*/}"
     - name: Deploy to CloudHub
       if: steps.branchname.outputs.OUTPUT == 'dev'
