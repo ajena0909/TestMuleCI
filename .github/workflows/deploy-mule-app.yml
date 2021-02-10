@@ -64,24 +64,24 @@ jobs:
       with:
         name: artifacts
         
-    - name: Prints the current branch name
-      run: |
-        echo "${GITHUB_BRANCH##*/}"
+    #- name: Prints the current branch name
+     # run: |
+      #  echo "${GITHUB_BRANCH##*/}"
     - name: Deploy to CloudHub
       env:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
         anypointapplication: "dev-testlistener" 
-        GITHUB_BRANCH: ${{ github.ref }}
+        GITHUB_BRANCH: ${{ env.GITHUB_BRANCH }}
       run: |        
         artifactName=$(ls *.jar | head -1)
         echo "akjena-${artifactName}"
-        raw=$(git branch -r --contains ${{ github.ref }})
-        branch=${raw##*/}
-        echo "BRANCH=$branch" >> $GITHUB_ENV
-        echo ${{ env.BRANCH }}
-        echo ${{ env.GITHUB_BRANCH }}
-        echo ${{ GITHUB_BRANCH }}
+    #    raw=$(git branch -r --contains ${{ github.ref }})
+    #    branch=${raw##*/}
+    #    echo "BRANCH=$branch" >> $GITHUB_ENV
+    #    echo ${{ env.BRANCH }}
+     # echo ${{ env.GITHUB_BRANCH }}
+      # echo ${{ GITHUB_BRANCH }}
         
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
