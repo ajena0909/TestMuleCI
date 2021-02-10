@@ -69,8 +69,8 @@ jobs:
       run : |
         OUTPUT1=$(echo $GITHUB_REF | cut -d'/' -f 3)
         echo "::set-output name=OUTPUT::$OUTPUT1"
-        artifactName=$(ls *.jar | head -1)
-        echo "::set-output name=AKJ::$artifactName"
+        artifactName11=$(ls *.jar | head -1)
+        echo "::set-output name=AKJ::$artifactName11"
 
     - name: Deploy to dev
       if: steps.branchname.outputs.OUTPUT == 'dev'
