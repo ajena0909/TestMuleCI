@@ -63,7 +63,15 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: artifacts
-        
+    - name: Get branch name 
+      id: branchname
+      run: |
+	      OUTPUT=$(echo $GITHUB_REF | cut -d'/' -f 3)  && echo "::set-output name=OUTPUT::$OUTPUT"
+
+    - name: Run Project A
+      if: steps.branchname.outputs.OUTPUT == 'master'
+      run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)  
+          
     - name: Prints the current branch name
       run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
       #  echo "${GITHUB_BRANCH##*/}"
