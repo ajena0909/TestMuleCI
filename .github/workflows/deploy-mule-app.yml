@@ -40,12 +40,12 @@ jobs:
       - name: Stamp artifact file name with commit hash
         run: |
           artifactName1=$(ls target/*.jar | head -1)
-          echo "${artifactName1}
+          echo "akjena-${artifactName1}"
           commitHash=$(git rev-parse --short "$GITHUB_SHA")
           artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/.$commitHash.jar/g")
-          echo "${artifactName2}"
+          echo "akjena-${artifactName2}"
           mv $artifactName1 $artifactName2
-          "
+          
       - uses: actions/upload-artifact@master
         with:
           name: artifacts
