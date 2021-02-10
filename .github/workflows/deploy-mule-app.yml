@@ -66,7 +66,7 @@ jobs:
     - name: Get branch name 
       id: branchname
       run: |
-	 OUTPUT=$(echo $GITHUB_REF | cut -d'/' -f 3)  && echo "::set-output name=OUTPUT::$OUTPUT"
+	OUTPUT=$(echo $GITHUB_REF | cut -d'/' -f 3) && echo "::set-output name=OUTPUT::$OUTPUT"
 
     - name: Run Project A
       if: steps.branchname.outputs.OUTPUT == 'master'
