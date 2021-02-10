@@ -65,11 +65,14 @@ jobs:
         name: artifacts
     - name: Get branch name 
       id: branchname
-      run : echo "::set-output name=OUTPUT::master"
+      run : |
+        OUTPUT1=$(echo $GITHUB_REF | cut -d'/' -f 3)
+        echo "::set-output name=OUTPUT::master"
 
-    - name: Run Project A
-      if: steps.branchname.outputs.OUTPUT == 'master1'
-      run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)  
+    - name: Deploy to master
+      if: steps.branchname.outputs.OUTPUT == 'master'
+      run: |
+        echo $(echo $GITHUB_REF | cut -d'/' -f 3)  
           
     - name: Prints the current branch name
       run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
