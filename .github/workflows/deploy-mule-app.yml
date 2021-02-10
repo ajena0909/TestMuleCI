@@ -89,6 +89,8 @@ jobs:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
         anypointapplication: "${steps.branchname.outputs.OUTPUT}-testlistener" 
+        anypointapplication1: ${steps.branchname.outputs.OUTPUT}"-testlistener" 
+        anypointapplication2: steps.branchname.outputs.OUTPUT"-testlistener" 
         GITHUB_BRANCH: ${{ env.GITHUB_BRANCH }}
       run: |        
         artifactName=$(ls *.jar | head -1)
