@@ -67,7 +67,7 @@ jobs:
       id: branchname
       run : |
         OUTPUT1=$(echo $GITHUB_REF | cut -d'/' -f 3)
-        echo "::set-output name=OUTPUT::master"
+        echo "::set-output name=OUTPUT::$OUTPUT1"
 
     - name: Deploy to master
       if: steps.branchname.outputs.OUTPUT == 'master'
