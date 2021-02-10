@@ -63,6 +63,7 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: artifacts
+
     - name: Get branch name 
       id: branchname
       run : |
@@ -100,6 +101,17 @@ jobs:
         
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
+    - name: Deploy to CloudHub
+    env:
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.MULE_PASSWORD }}
+      run: |
+        echo $USERNAME,
+        echo $PASSWORD,
+        artifactName=$(ls *.jar | head -1)
+      # mvn mule:deploy -Dmule.artifact=$artifactName      
+      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName="$USERNAME" -Danypoint.password="$PASSWORD"
+              # Runs a set of commands using the runners shell
       # Runs a single command using the runners shell
       #- name: Run a one-line script
       #  run: echo Hello, world!
