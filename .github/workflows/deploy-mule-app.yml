@@ -64,8 +64,8 @@ jobs:
       with:
         name: artifacts
         
-    #- name: Prints the current branch name
-     # run: |
+    - name: Prints the current branch name
+      run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
       #  echo "${GITHUB_BRANCH##*/}"
     - name: Deploy to CloudHub
       env:
