@@ -6,9 +6,9 @@ name: Mulesoft CI with Maven
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [ master, dev ]
+ # pull_request:
+  #  branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -63,6 +63,44 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: artifacts
+
+    - name: Get branch name 
+      id: branchname
+      run : |
+        OUTPUT1=$(echo $GITHUB_REF | cut -d'/' -f 3)
+        echo "::set-output name=OUTPUT::$OUTPUT1"
+
+    - name: Deploy to dev
+      if: steps.branchname.outputs.OUTPUT == 'dev'
+      run: |
+        echo $(echo $GITHUB_REF | cut -d'/' -f 3)  
+
+    - name: Deploy to master
+      if: steps.branchname.outputs.OUTPUT == 'master'
+      run: |
+        echo $(echo $GITHUB_REF | cut -d'/' -f 3)
+        
+    - name: Prints the current branch name
+      run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
+      #  echo "${GITHUB_BRANCH##*/}"
+    - name: Deploy to CloudHub
+      env:
+        username: ${{ secrets.ANYPOINT_USERNAME }}        
+        password: ${{ secrets.ANYPOINT_PASSWORD }}
+        anypointapplication: "dev-testlistener" 
+        GITHUB_BRANCH: ${{ env.GITHUB_BRANCH }}
+      run: |        
+        artifactName=$(ls *.jar | head -1)
+        echo "akjena-${artifactName}"
+    #    raw=$(git branch -r --contains ${{ github.ref }})
+    #    branch=${raw##*/}
+    #    echo "BRANCH=$branch" >> $GITHUB_ENV
+    #    echo ${{ env.BRANCH }}
+     # echo ${{ env.GITHUB_BRANCH }}
+      # echo ${{ GITHUB_BRANCH }}
+        
+      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
+      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
     - name: Deploy to CloudHub
     env:
       USERNAME: ${{ secrets.USERNAME }}
