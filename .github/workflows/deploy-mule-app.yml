@@ -81,7 +81,9 @@ jobs:
         echo $(echo $GITHUB_REF | cut -d'/' -f 3)
         
     - name: Prints the current branch name
-      run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
+      run: |
+        echo $(echo $GITHUB_REF | cut -d'/' -f 3)
+        appname=$(ls *.jar | head -1)
       #  echo "${GITHUB_BRANCH##*/}"
     - name: Deploy to CloudHub
       if: steps.branchname.outputs.OUTPUT == 'dev'
@@ -89,7 +91,7 @@ jobs:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
         anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-testlistener
-        anypointapplication1: $(ls *.jar | head -1)
+        anypointapplication1: ${appname}
         GITHUB_BRANCH: ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
         artifactName=$(ls *.jar | head -1)
