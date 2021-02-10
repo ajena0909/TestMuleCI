@@ -68,7 +68,7 @@ jobs:
       run : echo "::set-output name=OUTPUT::master"
 
     - name: Run Project A
-      if: steps.branchname.outputs.OUTPUT == 'master'
+      if: steps.branchname.outputs.OUTPUT == 'master1'
       run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)  
           
     - name: Prints the current branch name
