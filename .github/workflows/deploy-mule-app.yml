@@ -67,13 +67,13 @@ jobs:
     - name: Get branch name 
       id: branchname
       run : |
-        OUTPUT1=$(echo $GITHUB_REF | cut -d'/' -f 3)
-        echo "::set-output name=OUTPUT::$OUTPUT1"
+        BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)
+        echo "::set-output name=OUTPUT::$BRANCH"
     - name: Get application name         
       id: app
       run : |      
-        artifactName11=$(ls *.jar | head -1)
-        echo "::set-output name=AKJ::$artifactName11"
+        APPNAME=$(ls *.jar | head -1)
+        echo "::set-output name=OUTPUT::$APPNAME"
 
     - name: Deploy to dev
       if: steps.branchname.outputs.OUTPUT == 'dev'
@@ -96,7 +96,7 @@ jobs:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
         anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-testlistener
-        anypointapplication1: ${{ steps.app.outputs.AKJ }}
+        anypointapplication1: ${{ steps.app.outputs.OUTPUT }}
         GITHUB_BRANCH: ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
         artifactName=$(ls *.jar | head -1)
