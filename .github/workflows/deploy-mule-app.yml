@@ -7,8 +7,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main, master, dev ]
-  pull_request:
-    branches: [ main ]
+ # pull_request:
+  #  branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -64,15 +64,17 @@ jobs:
       with:
         name: artifacts
     - name: Deploy to CloudHub
-    env:
-      username: ${{ secrets.ANYPOINT_USERNAME }}        
-      password: ${{ secrets.ANYPOINT_PASSWORD }}
-      run: |
-        artifactName=$(ls *.jar | head -1) 
-        mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password
-      # mvn mule:deploy -Dmule.artifact=$artifactName    
-      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=aaa -Danypoint.password=aaa$
-      # Runs a set of commands using the runners shell
+      env:
+        username: ${{ secrets.ANYPOINT_USERNAME }}        
+        password: ${{ secrets.ANYPOINT_PASSWORD }}
+        anypointapplication: "dev-testlistener" 
+        
+      run: |        
+        artifactName=$(ls *.jar | head -1)
+        echo "janardan-${artifactName}"
+        
+         mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
+      #  mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
       # Runs a single command using the runners shell
       #- name: Run a one-line script
       #  run: echo Hello, world!
