@@ -103,13 +103,11 @@ jobs:
       env:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
-        anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-testlistener
-        anypointapplication1: ${{ steps.app.outputs.OUTPUT }}
-        GITHUB_BRANCH: ${{ steps.branchname.outputs.OUTPUT }}
+        anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-${{ steps.app.outputs.OUTPUT }}
       run: |        
-        artifactName=$(ls *.jar | head -1)
-        arr=( $(echo | ls *.jar | head -1 | tr '-' ' ') )
+        artifactName=$(ls *.jar | head -1)        
         echo "akjena-${artifactName}"
+      # arr=( $(echo | ls *.jar | head -1 | tr '-' ' ') )
         
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
