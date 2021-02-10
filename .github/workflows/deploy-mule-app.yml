@@ -107,10 +107,11 @@ jobs:
       run: |        
         artifactName=$(ls *.jar | head -1)        
         echo "akjena-${artifactName}"
-      # arr=( $(echo | ls *.jar | head -1 | tr '-' ' ') )
-        
-      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
+         
+        mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
+        
+      # arr=( $(echo | ls *.jar | head -1 | tr '-' ' ') )  
       # Runs a single command using the runners shell
       #- name: Run a one-line script
       #  run: echo Hello, world!
