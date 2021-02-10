@@ -69,6 +69,9 @@ jobs:
       run : |
         OUTPUT1=$(echo $GITHUB_REF | cut -d'/' -f 3)
         echo "::set-output name=OUTPUT::$OUTPUT1"
+    - name: Get application name         
+      id: app
+      run : |      
         artifactName11=$(ls *.jar | head -1)
         echo "::set-output name=AKJ::$artifactName11"
 
@@ -93,7 +96,7 @@ jobs:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
         anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-testlistener
-        anypointapplication1: ${{ steps.branchname.outputs.AKJ }}
+        anypointapplication1: ${{ steps.app.outputs.AKJ }}
         GITHUB_BRANCH: ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
         artifactName=$(ls *.jar | head -1)
