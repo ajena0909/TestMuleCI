@@ -88,9 +88,9 @@ jobs:
       env:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
-        anypointapplication: "${steps.branchname.outputs.OUTPUT}-testlistener" 
+        anypointapplication: steps.branchname.outputs.OUTPUT"-testlistener" 
         anypointapplication1: "dev-$(ls *.jar | head -1)" 
-        GITHUB_BRANCH: ${{ env.GITHUB_BRANCH }}
+        GITHUB_BRANCH: ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
         artifactName=$(ls *.jar | head -1)
         echo "akjena-${artifactName}"
