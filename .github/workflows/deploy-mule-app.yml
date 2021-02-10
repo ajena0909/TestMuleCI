@@ -74,9 +74,10 @@ jobs:
         echo "::set-output name=OUTPUT::$BRANCH"
     - name: Get application name         
       id: app
-      run : |      
-        APPNAME=$(echo $(ls *.jar | head -1))
+      run : |                 
+        APPNAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')
         echo "::set-output name=OUTPUT::$APPNAME"
+      # APPNAME=$(echo $(ls *.jar | head -1))
     
     - name: Deploy to dev
       if: steps.branchname.outputs.OUTPUT == 'dev'
