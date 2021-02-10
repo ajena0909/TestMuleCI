@@ -72,7 +72,7 @@ jobs:
     - name: Get application name         
       id: app
       run : |      
-        APPNAME=$(ls *.jar | head -1)
+        APPNAME=$(echo $(ls *.jar | head -1))
         echo "::set-output name=OUTPUT::$APPNAME"
 
     - name: Deploy to dev
