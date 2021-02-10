@@ -72,12 +72,12 @@ jobs:
         artifactName=$(ls *.jar | head -1)
         echo "akjena-${artifactName}"
         raw=$(git branch -r --contains ${{ github.ref }})
-        branch=${raw/origin\/}
-        echo ::set-env name=BRANCH::$branch
+        branch=${raw##*/}
+        echo "BRANCH=$branch" >> $GITHUB_ENV
         echo ${{ env.BRANCH }}
         
-         mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
-      #  mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
+      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
+      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
       # Runs a single command using the runners shell
       #- name: Run a one-line script
       #  run: echo Hello, world!
