@@ -65,8 +65,7 @@ jobs:
         name: artifacts
     - name: Get branch name 
       id: branchname
-      run: |
-	OUTPUT=$(echo $GITHUB_REF | cut -d'/' -f 3) && echo "::set-output name=OUTPUT::$OUTPUT"
+      run : echo "::set-output name=OUTPUT::master"
 
     - name: Run Project A
       if: steps.branchname.outputs.OUTPUT == 'master'
