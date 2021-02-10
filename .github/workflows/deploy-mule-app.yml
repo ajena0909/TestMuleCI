@@ -84,7 +84,7 @@ jobs:
       run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
       #  echo "${GITHUB_BRANCH##*/}"
     - name: Deploy to CloudHub
-      if: steps.branchname.outputs.OUTPUT == 'master'
+      if: steps.branchname.outputs.OUTPUT == 'dev'
       env:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
@@ -93,12 +93,6 @@ jobs:
       run: |        
         artifactName=$(ls *.jar | head -1)
         echo "akjena-${artifactName}"
-    #    raw=$(git branch -r --contains ${{ github.ref }})
-    #    branch=${raw##*/}
-    #    echo "BRANCH=$branch" >> $GITHUB_ENV
-    #    echo ${{ env.BRANCH }}
-     # echo ${{ env.GITHUB_BRANCH }}
-      # echo ${{ GITHUB_BRANCH }}
         
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
