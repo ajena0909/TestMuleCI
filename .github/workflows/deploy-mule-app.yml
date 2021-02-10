@@ -70,6 +70,7 @@ jobs:
       run : |
         BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)
         echo "::set-output name=OUTPUT::$BRANCH"
+        
     - name: Get application name         
       id: app
       run : |                 
@@ -83,23 +84,18 @@ jobs:
         echo $(echo $GITHUB_REF | cut -d'/' -f 3) 
         echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')"
       # echo ::set-env name=GHA_BRANCH::$(echo $GITHUB_REF | awk -F / '{print $3}')
-       
-    - name: Deploy to master
-      if: steps.branchname.outputs.OUTPUT == 'master'
-      run: |
-        echo $(echo $GITHUB_REF | cut -d'/' -f 3)
-        
+             
     - name: Deploy to CloudHub
-      if: steps.branchname.outputs.OUTPUT == 'dev'
+      # if: steps.branchname.outputs.OUTPUT == 'dev'
       env:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
         anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-${{ steps.app.outputs.OUTPUT }}
+        environment: ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
-        artifactName=$(ls *.jar | head -1)        
-        echo "akjena-${artifactName}"
+        artifactName=$(ls *.jar | head -1)
          
-        mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
+      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication -Danypoint.environment=$environment
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
         
       # arr=( $(echo | ls *.jar | head -1 | tr '-' ' ') )  
