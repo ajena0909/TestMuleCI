@@ -86,7 +86,7 @@ jobs:
       # echo ::set-env name=GHA_BRANCH::$(echo $GITHUB_REF | awk -F / '{print $3}')
              
     - name: Deploy to CloudHub
-      # if: steps.branchname.outputs.OUTPUT == 'dev'
+      # if: steps.branchname.outputs.OUTPUT == 'dev' or   if: github.ref == 'refs/heads/master'
       env:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
