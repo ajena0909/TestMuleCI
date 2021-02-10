@@ -84,6 +84,7 @@ jobs:
       run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
       #  echo "${GITHUB_BRANCH##*/}"
     - name: Deploy to CloudHub
+      if: steps.branchname.outputs.OUTPUT == 'master'
       env:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
