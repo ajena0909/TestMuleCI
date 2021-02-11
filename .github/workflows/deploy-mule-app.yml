@@ -85,10 +85,6 @@ jobs:
         echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')"
       # echo ::set-env name=GHA_BRANCH::$(echo $GITHUB_REF | awk -F / '{print $3}')
         
-    - name: Assign environment name
-      if: steps.branchname.outputs.OUTPUT == 'dev'
-      run : envName=Sandbox
-        
     - name: Deploy to CloudHub
       # if: steps.branchname.outputs.OUTPUT == 'dev' or   if: github.ref == 'refs/heads/master'
       env:
@@ -97,7 +93,7 @@ jobs:
         username1: ${{ secrets.dev.MULE_USERNAME }}        
         password1: ${{ secrets.dev.MULE_PASSWORD }}
         anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-${{ steps.app.outputs.OUTPUT }}
-        environment: ${envName} #Sandbox # ${{ steps.branchname.outputs.OUTPUT }}
+        environment: Sandbox # ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
         artifactName=$(ls *.jar | head -1)
          
