@@ -1,4 +1,4 @@
-# This workflow will build a Mulesoft project with Maven
+# This workflow will build and deploy a Mulesoft project with Maven
 
 name: Mulesoft CI with Maven
 
@@ -75,12 +75,6 @@ jobs:
       run : |                 
         APPNAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')
         echo "::set-output name=OUTPUT::$APPNAME"
-          
-    - name: Deploy to dev
-      if: steps.branchname.outputs.OUTPUT == 'dev'
-      run: |
-        echo $(echo $GITHUB_REF | cut -d'/' -f 3) 
-        echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')"
         
     - name: Deploy to CloudHub
       # if: steps.branchname.outputs.OUTPUT == 'dev' or   if: github.ref == 'refs/heads/master'
@@ -96,14 +90,4 @@ jobs:
          
         mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication -Danypoint.environment=$environment
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
-        
-      # arr=( $(echo | ls *.jar | head -1 | tr '-' ' ') )  
-      # Runs a single command using the runners shell
-      #- name: Run a one-line script
-      #  run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      #- name: Run a multi-line script
-     # run: |
-     #    echo Add other actions to build,
-     #     echo test, and deploy your project.
+      
