@@ -1,4 +1,4 @@
-# This workflow will build a Mulesoft project with Maven
+# This workflow will build and deploy a Mulesoft project with Maven
 
 name: Mulesoft CI with Maven
 
@@ -43,12 +43,12 @@ jobs:
           commitHash=$(git rev-parse --short "$GITHUB_SHA")
           artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/.$commitHash.jar/g")
           mv $artifactName1 $artifactName2
+          
       - uses: actions/upload-artifact@master
         with:
           name: artifacts
           path: target/*.jar
-          
-    
+              
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -67,57 +67,27 @@ jobs:
     - name: Get branch name 
       id: branchname
       run : |
-        OUTPUT1=$(echo $GITHUB_REF | cut -d'/' -f 3)
-        echo "::set-output name=OUTPUT::$OUTPUT1"
-
-    - name: Deploy to dev
-      if: steps.branchname.outputs.OUTPUT == 'dev'
-      run: |
-        echo $(echo $GITHUB_REF | cut -d'/' -f 3)  
-
-    - name: Deploy to master
-      if: steps.branchname.outputs.OUTPUT == 'master'
-      run: |
-        echo $(echo $GITHUB_REF | cut -d'/' -f 3)
+        BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)
+        echo "::set-output name=OUTPUT::$BRANCH"
         
-    - name: Prints the current branch name
-      run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
-      #  echo "${GITHUB_BRANCH##*/}"
+    - name: Get application name         
+      id: app
+      run : |                 
+        APPNAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')
+        echo "::set-output name=OUTPUT::$APPNAME"
+        
     - name: Deploy to CloudHub
+      # if: steps.branchname.outputs.OUTPUT == 'dev' or   if: github.ref == 'refs/heads/master'
       env:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
-        anypointapplication: "dev-testlistener" 
-        GITHUB_BRANCH: ${{ env.GITHUB_BRANCH }}
+        username1: ${{ secrets.dev.MULE_USERNAME }}        
+        password1: ${{ secrets.dev.MULE_PASSWORD }}
+        anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-${{ steps.app.outputs.OUTPUT }}
+        environment: Sandbox # ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
         artifactName=$(ls *.jar | head -1)
-        echo "akjena-${artifactName}"
-    #    raw=$(git branch -r --contains ${{ github.ref }})
-    #    branch=${raw##*/}
-    #    echo "BRANCH=$branch" >> $GITHUB_ENV
-    #    echo ${{ env.BRANCH }}
-     # echo ${{ env.GITHUB_BRANCH }}
-      # echo ${{ GITHUB_BRANCH }}
-        
-      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication
+         
+        mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication -Danypoint.environment=$environment
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
-    - name: Deploy to CloudHub
-    env:
-      USERNAME: ${{ secrets.USERNAME }}
-      PASSWORD: ${{ secrets.MULE_PASSWORD }}
-      run: |
-        echo $USERNAME,
-        echo $PASSWORD,
-        artifactName=$(ls *.jar | head -1)
-      # mvn mule:deploy -Dmule.artifact=$artifactName      
-      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName="$USERNAME" -Danypoint.password="$PASSWORD"
-              # Runs a set of commands using the runners shell
-      # Runs a single command using the runners shell
-      #- name: Run a one-line script
-      #  run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      #- name: Run a multi-line script
-     # run: |
-     #    echo Add other actions to build,
-     #     echo test, and deploy your project.
+    
