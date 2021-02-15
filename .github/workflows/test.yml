@@ -25,9 +25,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          if [ "$ANYPOINT_USERNAME" == "akjenaprft3" ]
+          if [ "$ANYPOINT_PASSWORD" == "Whatismypwd1$" ]
           then
-            echo "Got user name from secret"
+            echo "Got password from secret"
           fi
         env:
           username: ${{ secrets.ANYPOINT_USERNAME }}
