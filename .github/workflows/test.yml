@@ -27,7 +27,7 @@ jobs:
         run: |
           if [ "$ANYPOINT_USERNAME" == "akjenaprft3" ]
           then
-            echo Hello, world!
+            echo "Got user name from secret"
           fi
         env:
           username: ${{ secrets.ANYPOINT_USERNAME }}
