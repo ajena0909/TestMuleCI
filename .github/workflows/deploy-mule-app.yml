@@ -96,6 +96,6 @@ jobs:
       run: |        
         artifactName=$(ls *.jar | head -1)
          
-      # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication -Danypoint.environment=$environment
+        mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.userName=$username -Danypoint.password=$password -Danypoint.applicationName=$anypointapplication -Danypoint.environment=$environment
       # mvn mule:deploy -Dmule.artifact=$artifactName -Danypoint.applicationName="dev-testgitactions"
       
