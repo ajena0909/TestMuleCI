@@ -30,4 +30,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           if [ "$ANYPOINT_USERNAME" -eq "akjenaprft3" ]
-			      echo "Got user name from secret"
+	   echo "Got user name from secret"
