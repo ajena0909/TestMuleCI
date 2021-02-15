@@ -25,7 +25,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          if [ "$ANYPOINT_PASSWORD" == "Whatismypwd1$" ]
+          echo "deploy_env=Sandbox" >> $GITHUB_ENV
+          if [ "${{ env.deploy_env }}" == "Sandbox" ]
           then
             echo "Got password from secret"
           fi
