@@ -90,7 +90,7 @@ jobs:
         username: ${{ secrets.ANYPOINT_USERNAME }}        
         password: ${{ secrets.ANYPOINT_PASSWORD }}
         username1: ${{ secrets.MULE_USERNAME }}        
-        password1: ${{ secrets.MULE_PASSWORD }}
+
         anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-${{ steps.app.outputs.OUTPUT }}
         environment: ${{ env.deploy_env }} # Sandbox # ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
