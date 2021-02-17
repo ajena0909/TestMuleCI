@@ -44,7 +44,7 @@
 						<applicationName>${anypointapplication}</applicationName>
 						<environment>${environment}</environment>
 						<workerType>MICRO</workerType>
-						<region>us-west-2</region>
+						<region>us-east-2</region>
 						<workers>1</workers>
 						<objectStoreV2>true</objectStoreV2>
 					</cloudHubDeployment>				
