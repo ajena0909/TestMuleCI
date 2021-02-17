@@ -91,7 +91,7 @@ jobs:
         password: Isottergood1 # ${{ secrets.ANYPOINT_PASSWORD_OTTER }}
         username1: ${{ secrets.MULE_USERNAME }}        
 
-        anypointapplication: dev-testmuleci # ${{ steps.branchname.outputs.OUTPUT }}-${{ steps.app.outputs.OUTPUT }}
+        anypointapplication: dev-testmuleci1 # ${{ steps.branchname.outputs.OUTPUT }}-${{ steps.app.outputs.OUTPUT }}
         environment: Dev # ${{ env.deploy_env }} # Sandbox # ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
         artifactName=$(ls *.jar | head -1)
