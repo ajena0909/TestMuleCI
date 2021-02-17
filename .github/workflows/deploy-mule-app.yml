@@ -87,12 +87,12 @@ jobs:
     - name: Deploy to CloudHub
       # if: steps.branchname.outputs.OUTPUT == 'dev' or   if: github.ref == 'refs/heads/master'
       env:
-        username: ${{ secrets.ANYPOINT_USERNAME }}        
-        password: ${{ secrets.ANYPOINT_PASSWORD }}
+        username: ${{ secrets.ANYPOINT_USERNAME_OTTER }}        
+        password: ${{ secrets.ANYPOINT_PASSWORD_OTTER }}
         username1: ${{ secrets.MULE_USERNAME }}        
 
         anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-${{ steps.app.outputs.OUTPUT }}
-        environment: ${{ env.deploy_env }} # Sandbox # ${{ steps.branchname.outputs.OUTPUT }}
+        environment: Dev # ${{ env.deploy_env }} # Sandbox # ${{ steps.branchname.outputs.OUTPUT }}
       run: |        
         artifactName=$(ls *.jar | head -1)
          
