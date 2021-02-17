@@ -87,8 +87,8 @@ jobs:
     - name: Deploy to CloudHub
       # if: steps.branchname.outputs.OUTPUT == 'dev' or   if: github.ref == 'refs/heads/master'
       env:
-        username: ${{ secrets.ANYPOINT_USERNAME_OTTER }}        
-        password: ${{ secrets.ANYPOINT_PASSWORD_OTTER }}
+        username: akjenaotter # ${{ secrets.ANYPOINT_USERNAME_OTTER }}        
+        password: Isottergood1 # ${{ secrets.ANYPOINT_PASSWORD_OTTER }}
         username1: ${{ secrets.MULE_USERNAME }}        
 
         anypointapplication: ${{ steps.branchname.outputs.OUTPUT }}-${{ steps.app.outputs.OUTPUT }}
